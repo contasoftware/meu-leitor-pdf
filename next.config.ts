@@ -7,15 +7,16 @@ const withPWA = withPWAInit({
 });
 
 const nextConfig = {
-  // Ignora erros de TypeScript e Lint que travam o deploy na Vercel
+  // Ignora erros chatos que travam o deploy
   typescript: {
     ignoreBuildErrors: true,
   },
   eslint: {
     ignoreDuringBuilds: true,
   },
-  // Esta chave vazia diz ao Next.js para permitir configurações personalizadas
-  webpack: (config: any) => {
+  // Força o uso do Webpack (motor antigo) de forma compatível com Next 16
+  webpack: (config: any, { isServer }: { isServer: boolean }) => {
+    // Se precisar de alguma config específica de loader, entra aqui
     return config;
   },
 };
